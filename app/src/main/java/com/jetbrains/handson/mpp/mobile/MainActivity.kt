@@ -11,6 +11,9 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.get
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
@@ -44,9 +47,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-        val departingSpinner: Spinner =newLocationsSpinner(this,R.id.departing_spinner)
+        val departingSpinner: Spinner = newLocationsSpinner(this,R.id.departing_spinner)
 
-        val arrivalSpinner : Spinner =newLocationsSpinner(this,R.id.departing_spinner)
+        val arrivalSpinner : Spinner = newLocationsSpinner(this,R.id.arrival_spinner)
 
         val button: Button = findViewById(R.id.button_id)
         button.setOnClickListener {
@@ -64,7 +67,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
                 if(arrivalSpinner.selectedItem == stationList[index])
                    arrivalCode = stationCodes[index]
             }
+            var apis = ""
+            apis =  presenter.getJourneys(departingCode,arrivalCode)
 
+            openNewTabWindow("https://google.com/".plus(apis),this@MainActivity)
             openNewTabWindow("https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/".plus(departingCode).plus("/").plus(arrivalCode).plus("/#LiveDepResults"), this@MainActivity)
         }
     }
