@@ -17,7 +17,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
         view.setLabel(createApplicationScreenMessage())
-
     }
     private suspend fun getApiCall(originStation:String,destinationStation:String):String {
         val client = HttpClient()
