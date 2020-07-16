@@ -20,7 +20,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
     private suspend fun getApiCall(originStation:String,destinationStation:String):String {
         val client = HttpClient()
-        val queryURL = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=".plus(originStation).plus("&destinationStation=").plus(destinationStation).plus("&viaStation=WFJ&outboundDateTime=2020-07-20T12%3A16%3A27.371%2B00%3A00&numberOfChildren=2&numberOfAdults=2&doSplitTicketing=false")
+        val queryURL = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$originStation&destinationStation=$destinationStation&viaStation=WFJ&outboundDateTime=2020-07-20T12%3A16%3A27.371%2B00%3A00&numberOfChildren=2&numberOfAdults=2&doSplitTicketing=false"
         val content = client.get<String>(queryURL)
         client.close()
         return content
