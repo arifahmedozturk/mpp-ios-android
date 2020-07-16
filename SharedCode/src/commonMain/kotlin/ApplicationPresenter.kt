@@ -28,8 +28,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     override fun getJourneys(originStation:String,destinationStation:String):String
     {
         var result = ""
+        var view = this.view
         launch{
             result = getApiCall(originStation,destinationStation)
+            if (view != null) {
+                view.setJourneys(result)
+            }
         }
         return result
     }

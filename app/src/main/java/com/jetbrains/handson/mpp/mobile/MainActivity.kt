@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         context.startActivity(intents)
     }
 
+    override fun setJourneys(str:String){
+
+    }
+
     fun newLocationsSpinner(context:Context,spinnerID:Int):Spinner
     {
         val theSpinner: Spinner = findViewById(spinnerID)

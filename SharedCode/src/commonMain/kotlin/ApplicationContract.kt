@@ -5,10 +5,11 @@ import kotlinx.coroutines.CoroutineScope
 interface ApplicationContract {
     interface View {
         fun setLabel(text: String)
+        fun setJourneys(str : String)
     }
 
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
-        abstract fun getJourneys(departingStation:String, arrivingStation:String):String
+        abstract fun getJourneys(originStation:String, destinationStation:String):String
     }
 }
