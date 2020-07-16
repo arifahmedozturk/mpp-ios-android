@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-        val departingSpinner: Spinner =newLocationsSpinner(this,R.id.departing_spinner)
+        val departingSpinner: Spinner = newLocationsSpinner(this,R.id.departing_spinner)
 
-        val arrivalSpinner : Spinner =newLocationsSpinner(this,R.id.departing_spinner)
+        val arrivalSpinner : Spinner = newLocationsSpinner(this,R.id.arrival_spinner)
 
         val button: Button = findViewById(R.id.button_id)
         button.setOnClickListener {
@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
                    arrivalCode = stationCodes[index]
             }
             var apis = ""
-            apis =  presenter.getJourneys()
+            apis =  presenter.getJourneys(departingCode,arrivalCode)
+
             openNewTabWindow("https://google.com/".plus(apis),this@MainActivity)
             openNewTabWindow("https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/".plus(departingCode).plus("/").plus(arrivalCode).plus("/#LiveDepResults"), this@MainActivity)
         }

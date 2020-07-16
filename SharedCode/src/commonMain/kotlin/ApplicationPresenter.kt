@@ -19,18 +19,19 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         view.setLabel(createApplicationScreenMessage())
 
     }
-    private suspend fun getApiCall():String {
-        var content = ""
+    private suspend fun getApiCall(originStation:String,destinationStation:String):String {
         val client = HttpClient()
-        content = client.get<String>("https://mobile-api-dev.lner.co.uk/v1/fares?originStation=1444&destinationStation=HML&viaStation=WFJ&outboundDateTime=2020-07-20T12%3A16%3A27.371%2B00%3A00&numberOfChildren=2&numberOfAdults=2&doSplitTicketing=false")
+        val queryURL = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=".plus(originStation).plus("&destinationStation=").plus(destinationStation).plus("&viaStation=WFJ&outboundDateTime=2020-07-20T12%3A16%3A27.371%2B00%3A00&numberOfChildren=2&numberOfAdults=2&doSplitTicketing=false")
+        val content = client.get<String>(queryURL)
         client.close()
         return content
     }
-    override fun getJourneys():String
+    override fun getJourneys(originStation:String,destinationStation:String):String
     {
+        var result = ""
         launch{
-            getApiCall()
+            result = getApiCall(originStation,destinationStation)
         }
-        return ""
+        return result
     }
 }

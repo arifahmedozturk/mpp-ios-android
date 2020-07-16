@@ -9,9 +9,8 @@ interface ApplicationContract {
 
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
-        abstract fun getJourneys():String
+        abstract fun getJourneys(departingStation:String, arrivingStation:String):String
 
     }
-
 
 }
